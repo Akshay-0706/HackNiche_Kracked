@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:djhackathon/backend/database/api.dart';
 import 'package:djhackathon/backend/database/spotlight.dart';
+import 'package:djhackathon/frontend/components/custom_page_route.dart';
+import 'package:djhackathon/frontend/country/country.dart';
 import 'package:djhackathon/frontend/home_content/components/shimmer.dart';
 import 'package:djhackathon/size.dart';
 import 'package:djhackathon/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +26,14 @@ class _HomeContentBodyState extends State<HomeContentBody> {
   final box = GetStorage();
   bool isReady = false;
   late List<Spots> spots;
+  List<String> countries = [
+    "India",
+    "USA",
+    "France",
+    "England",
+    "Russia",
+    "Australia",
+  ];
 
   @override
   void initState() {
@@ -82,6 +93,23 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                     color: pallete.primaryDark(),
                     fontSize: getWidth(22),
                     fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...List.generate(
+                        6,
+                        (index) => FlagCard(
+                          pallete: pallete,
+                          index: index,
+                          country: countries[index],
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -252,6 +280,73 @@ class _HomeContentBodyState extends State<HomeContentBody> {
   }
 }
 
+class FlagCard extends StatelessWidget {
+  const FlagCard({
+    Key? key,
+    required this.pallete,
+    required this.country,
+    required this.index,
+  }) : super(key: key);
+
+  final Pallete pallete;
+  final String country;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CustomPageRoute(
+                    context,
+                    Country(
+                      country: country,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                width: 80,
+                height: 60,
+                decoration: BoxDecoration(
+                  border: Border.all(color: pallete.primary(), width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: SvgPicture.asset(
+                      "assets/icons/${country.toLowerCase()}.svg",
+                      fit: BoxFit.cover,
+                      width: 90,
+                      height: 70,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: getWidth(5)),
+            Text(
+              country,
+              style: TextStyle(
+                color: pallete.primaryDark(),
+                fontSize: getWidth(16),
+              ),
+            ),
+          ],
+        ),
+        if (index != 5) SizedBox(width: getWidth(10)),
+      ],
+    );
+  }
+}
+
 class NewsCard extends StatelessWidget {
   const NewsCard({
     Key? key,
@@ -389,30 +484,25 @@ class SpotlightCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   gradient: LinearGradient(
-                      begin: FractionalOffset.topCenter,
-                      end: FractionalOffset.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black.withOpacity(0.1),
-                        Colors.black.withOpacity(0.2),
-                        Colors.black.withOpacity(0.3),
-                        Colors.black.withOpacity(0.6),
-                        Colors.black.withOpacity(0.8),
-                      ],
-                      stops: const [
-                        0.0,
-                        0.2,
-                        0.3,
-                        0.4,
-                        0.5,
-                        0.6,
-                      ]),
-                  // image: DecorationImage(
-                  //   image: NetworkImage(spot.img),
-                  //   fit: BoxFit.cover,
-                  //   colorFilter: const ColorFilter.mode(
-                  //       Colors.black45, BlendMode.darken),
-                  // ),
+                    begin: FractionalOffset.topCenter,
+                    end: FractionalOffset.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.1),
+                      Colors.black.withOpacity(0.2),
+                      Colors.black.withOpacity(0.3),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.8),
+                    ],
+                    stops: const [
+                      0.0,
+                      0.2,
+                      0.3,
+                      0.4,
+                      0.5,
+                      0.6,
+                    ],
+                  ),
                 ),
               ),
 
