@@ -29,6 +29,7 @@ class _ResultsState extends State<Results> {
       setState(() {
         isReady = true;
         results = value!.totalResults;
+        print('results are $results');
         print('here');
 
         value.articles!.forEach((element) {
@@ -75,7 +76,7 @@ class _ResultsState extends State<Results> {
                   ),
                 ),
                 ...List.generate(
-                  results ?? 10,
+                  spots.length,
                   (index) => isReady
                       ? NewsCard(
                           spot: spots[index],

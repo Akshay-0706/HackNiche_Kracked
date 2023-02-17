@@ -342,19 +342,18 @@ class FlagCard extends StatelessWidget {
                   ),
                 );
               },
-              child: Container(
-                width: 60,
+              child: SizedBox(
                 height: 60,
-                decoration: BoxDecoration(
-                  border: Border.all(color: pallete.primary(), width: 2),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: SvgPicture.asset(
-                    "assets/icons/${country.toLowerCase()}.svg",
-                    width: 400,
-                    height: 400,
+                width: 60,
+                child: ClipOval(
+                  clipBehavior: Clip.antiAlias,
+                  child: Transform.scale(
+                    scale: 1.7,
+                    child: SvgPicture.asset(
+                      "assets/icons/${country.toLowerCase()}.svg",
+                      clipBehavior: Clip.hardEdge,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
