@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "978377414211",
+    "project_id": "dj-hackathon",
+    "storage_bucket": "dj-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978377414211:android:481e01083d7e2027dee6f6",
+        "android_client_info": {
+          "package_name": "com.example.djhackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978377414211-tll5sb0gfj8j7pe73dfnsepl3qf6v5mq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSXT5mAF4iopcucZThv6bU_KoaREhoBB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978377414211-tll5sb0gfj8j7pe73dfnsepl3qf6v5mq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
