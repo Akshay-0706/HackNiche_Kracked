@@ -50,3 +50,30 @@ Future<Country?> fetchDataCountry(String country) async {
     return null;
   }
 }
+
+Future<NewsData?> fetchNewsData(String? query, String? category) async {
+  late String url;
+
+  if (category != null && query != null) {
+    url =
+        "https://newsapi.org/v2/top-headlines?q=$query&category=$category&sortBy=publishedAt&apiKey=f91f9ae4b85f41ff954bb7080170b604";
+  } else if (category != null) {
+    url =
+        "https://newsapi.org/v2/top-headlines?category=$category&sortBy=publishedAt&apiKey=f91f9ae4b85f41ff954bb7080170b604";
+  } else {
+    url =
+        "https://newsapi.org/v2/top-headlines?q=$query&sortBy=publishedAt&apiKey=f91f9ae4b85f41ff954bb7080170b604";
+  }
+
+  print(url);
+
+  final response = await http.get(Uri.parse(url));
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    // print('out');
+    return NewsData.fromJson(jsonDecode(response.body));
+  } else {
+    return null;
+  }
+}
