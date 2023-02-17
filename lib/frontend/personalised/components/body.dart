@@ -1,5 +1,6 @@
 import 'package:djhackathon/backend/database/api.dart';
 import 'package:djhackathon/backend/database/spotlight.dart';
+import 'package:djhackathon/frontend/home_content/components/shimmer.dart';
 import 'package:djhackathon/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -34,93 +35,87 @@ class _PersonalisedBodyState extends State<PersonalisedBody> {
   void changeTab(int index) {
     setState(() {
       current = index;
-      personalised(tabs[index - 1].toLowerCase());
+      isReady = false;
     });
+    personalised(index == 0 ? "all" : tabs[index - 1].toLowerCase());
   }
 
   @override
   void initState() {
-    // TODO: implement initState
-    fetchData('all').then((value) {
-      setState(() {
-        isReady = true;
-        spots = value!.spots;
-      });
-    });
-    // isReady = true;
+    personalised("all");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Pallete pallete = Pallete(context);
-    return isReady
-        ? Scaffold(
-            body: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: getWidth(20)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      "Personalised",
-                      style: TextStyle(
-                        color: pallete.primaryDark(),
-                        fontSize: getWidth(22),
-                        fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: getWidth(20)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Personalised",
+                style: TextStyle(
+                  color: pallete.primaryDark(),
+                  fontSize: getWidth(22),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: getWidth(20)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      4,
+                      (index) => TabItem(
+                        pallete: pallete,
+                        index: index,
+                        current: current,
+                        onClicked: changeTab,
+                        title: index == 0 ? "For you" : tabs[index - 1],
                       ),
-                    ),
-                  ),
-                  SizedBox(height: getWidth(20)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...List.generate(
-                            4,
-                            (index) => TabItem(
-                              pallete: pallete,
-                              index: index,
-                              current: current,
-                              onClicked: changeTab,
-                              title: index == 0 ? "For you" : tabs[index - 1],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
-                            ...List.generate(
-                              10,
-                              (index) => NewsCard(
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      ...List.generate(
+                        10,
+                        (index) => isReady
+                            ? NewsCard(
                                 spot: spots[index],
                                 pallete: pallete,
                                 index: index,
                                 length: 10,
-                              ),
-                            ),
-                          ],
-                        ),
+                              )
+                            : NewsItemShimmer(index: index),
                       ),
-                    ),
-                  )
-                ],
+                    ],
+                  ),
+                ),
               ),
-            ),
-          )
-        : Center(child: CircularProgressIndicator());
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

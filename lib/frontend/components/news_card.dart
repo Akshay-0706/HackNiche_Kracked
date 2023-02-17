@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../backend/database/spotlight.dart';
 import '../../size.dart';
@@ -21,6 +24,7 @@ class NewsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (index == 0) SizedBox(height: getWidth(20)),
         Container(
           height: getHeight(120),
           decoration: BoxDecoration(
@@ -74,14 +78,14 @@ class NewsCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              spot.time.day.toString(),
+                              DateFormat.jm().format(spot.time).toLowerCase(),
                               style: TextStyle(
                                 color: pallete.primaryDark().withOpacity(0.8),
                                 fontSize: getWidth(12),
                               ),
                             ),
                             Text(
-                              "500 Views",
+                              "${Random().nextInt(500 + 2)} Views",
                               style: TextStyle(
                                 color: pallete.primaryDark().withOpacity(0.8),
                                 fontSize: getWidth(12),

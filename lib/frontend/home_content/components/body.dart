@@ -5,6 +5,8 @@ import 'package:djhackathon/backend/database/spotlight.dart';
 import 'package:djhackathon/frontend/components/custom_page_route.dart';
 import 'package:djhackathon/frontend/country/country.dart';
 import 'package:djhackathon/frontend/home_content/components/shimmer.dart';
+import 'package:djhackathon/frontend/news/news.dart';
+import 'package:djhackathon/frontend/spotlight/spotlight.dart';
 import 'package:djhackathon/size.dart';
 import 'package:djhackathon/theme.dart';
 import 'package:flutter/material.dart';
@@ -54,12 +56,13 @@ class _HomeContentBodyState extends State<HomeContentBody> {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.all(getWidth(20)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
@@ -78,16 +81,22 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
-                Text(
+              ),
+              const SizedBox(height: 40),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
+                child: Text(
                   "Hi, ${box.read("name").toString().split(" ")[0]}!",
                   style: TextStyle(
                     color: pallete.primaryDark(),
                     fontSize: getWidth(18),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
+                child: Text(
                   "Explore today's!",
                   style: TextStyle(
                     color: pallete.primaryDark(),
@@ -95,25 +104,28 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 20),
-                SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      ...List.generate(
-                        6,
-                        (index) => FlagCard(
-                          pallete: pallete,
-                          index: index,
-                          country: countries[index],
-                        ),
-                      )
-                    ],
-                  ),
+              ),
+              const SizedBox(height: 20),
+              SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      6,
+                      (index) => FlagCard(
+                        pallete: pallete,
+                        index: index,
+                        country: countries[index],
+                      ),
+                    )
+                  ],
                 ),
-                const SizedBox(height: 20),
-                Stack(
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
+                child: Stack(
                   alignment: AlignmentDirectional.bottomStart,
                   children: [
                     Transform(
@@ -164,8 +176,11 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                     )
                   ],
                 ),
-                const SizedBox(height: 20),
-                Row(
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -186,27 +201,40 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-                SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      ...List.generate(
-                        6,
-                        (index) => isReady
-                            ? SpotlightCard(
+              ),
+              const SizedBox(height: 10),
+              SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      6,
+                      (index) => isReady
+                          ? GestureDetector(
+                              onTap: () => Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                  context,
+                                  SpotLight(
+                                      spots: spots[spots.length - index - 1]),
+                                ),
+                              ),
+                              child: SpotlightCard(
                                 spot: spots[spots.length - index - 1],
                                 pallete: pallete,
                                 index: index,
-                              )
-                            : SpotlightShimmer(index: index),
-                      )
-                    ],
-                  ),
+                              ),
+                            )
+                          : SpotlightShimmer(index: index),
+                    )
+                  ],
                 ),
-                const SizedBox(height: 20),
-                Row(
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -227,52 +255,55 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-                ...List.generate(
-                  10,
-                  (index) => isReady
-                      ? NewsCard(
+              ),
+              const SizedBox(height: 10),
+              ...List.generate(
+                10,
+                (index) => isReady
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
+                        child: NewsCard(
                           spot: spots[index],
                           pallete: pallete,
                           index: index,
                           length: 10,
-                        )
-                      : NewsItemShimmer(index: index),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: pallete.primaryDark()),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: Row(
-                          children: [
-                            Text(
-                              "View more",
-                              style: TextStyle(
-                                color: pallete.primaryDark(),
-                                fontSize: getWidth(14),
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 18,
-                              color: pallete.primaryDark(),
-                            )
-                          ],
                         ),
+                      )
+                    : NewsItemShimmer(index: index),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: pallete.primaryDark()),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            "View more",
+                            style: TextStyle(
+                              color: pallete.primaryDark(),
+                              fontSize: getWidth(14),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 18,
+                            color: pallete.primaryDark(),
+                          )
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -296,6 +327,7 @@ class FlagCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        if (index == 0) SizedBox(width: getWidth(20)),
         Column(
           children: [
             GestureDetector(
@@ -311,22 +343,18 @@ class FlagCard extends StatelessWidget {
                 );
               },
               child: Container(
-                width: 80,
+                width: 60,
                 height: 60,
                 decoration: BoxDecoration(
                   border: Border.all(color: pallete.primary(), width: 2),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(30),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: SvgPicture.asset(
-                      "assets/icons/${country.toLowerCase()}.svg",
-                      fit: BoxFit.cover,
-                      width: 90,
-                      height: 70,
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(60),
+                  child: SvgPicture.asset(
+                    "assets/icons/${country.toLowerCase()}.svg",
+                    width: 400,
+                    height: 400,
                   ),
                 ),
               ),
@@ -342,105 +370,7 @@ class FlagCard extends StatelessWidget {
           ],
         ),
         if (index != 5) SizedBox(width: getWidth(10)),
-      ],
-    );
-  }
-}
-
-class NewsCard extends StatelessWidget {
-  const NewsCard({
-    Key? key,
-    required this.spot,
-    required this.pallete,
-    required this.index,
-    required this.length,
-  }) : super(key: key);
-
-  final Spots spot;
-  final Pallete pallete;
-  final int index, length;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: getHeight(120),
-          decoration: BoxDecoration(
-            color: pallete.background(),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: pallete.primaryDark().withOpacity(0.4),
-                offset: const Offset(0, 3),
-                blurRadius: 8,
-              )
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Container(
-                  width: getWidth(60),
-                  height: getWidth(120),
-                  decoration: BoxDecoration(
-                    color: pallete.primaryDark().withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      spot.img,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          spot.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: TextStyle(
-                            color: pallete.primaryDark(),
-                            fontSize: getWidth(14),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              DateFormat.jm().format(spot.time).toLowerCase(),
-                              style: TextStyle(
-                                color: pallete.primaryDark().withOpacity(0.8),
-                                fontSize: getWidth(12),
-                              ),
-                            ),
-                            Text(
-                              "${Random().nextInt(500 + 2)} Views",
-                              style: TextStyle(
-                                color: pallete.primaryDark().withOpacity(0.8),
-                                fontSize: getWidth(12),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        if (index != length - 1) SizedBox(height: getWidth(20)),
+        if (index == 5) SizedBox(width: getWidth(20)),
       ],
     );
   }
@@ -462,6 +392,7 @@ class SpotlightCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        if (index == 0) SizedBox(width: getWidth(20)),
         Container(
           width: getWidth(240),
           height: getWidth(300),
@@ -505,33 +436,6 @@ class SpotlightCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Container(
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(20),
-              //     gradient: LinearGradient(
-              //       begin: FractionalOffset.topCenter,
-              //       end: FractionalOffset.bottomCenter,
-              //       colors: [
-              //         Color(0xff0d69ff).withOpacity(0.0),
-              //         Color(0xff0069ff).withOpacity(0.8),
-              //       ],
-              //     ),
-              //     // image: DecorationImage(
-              //     //   image: NetworkImage(spot.img),
-              //     //   fit: BoxFit.cover,
-              //     //   colorFilter: const ColorFilter.mode(
-              //     //       Colors.black45, BlendMode.darken),
-              //     // ),
-              //   ),
-              //   child: ClipRRect(
-              //     borderRadius: BorderRadius.circular(20),
-              //     child: Image.network(
-              //       spot.img,
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              // ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -575,6 +479,7 @@ class SpotlightCard extends StatelessWidget {
           ),
         ),
         if (index < 5) SizedBox(width: getWidth(20)),
+        if (index == 5) SizedBox(width: getWidth(20)),
       ],
     );
   }
