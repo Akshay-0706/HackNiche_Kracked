@@ -19,12 +19,10 @@ class Spotlight {
     // print('in');
     List<dynamic> data = json['data'] as List<dynamic>;
     for (var ele in data) {
-      // print('function');
-      // print(ele['title']);
-      String t = ele['time'];
+      String dateTime =
+          ele["date"] + " " + ele['time'].toString().toUpperCase();
 
-      // print('in2');
-      DateTime time = new DateFormat("hh:mm").parse(t);
+      DateTime time = DateFormat("d MMM y,EEEE hh:mm a").parse(dateTime);
       // print(time);
       Spots s = Spots(ele['title'], ele['imageUrl'], ele['author'], time);
       spots.add(s);
