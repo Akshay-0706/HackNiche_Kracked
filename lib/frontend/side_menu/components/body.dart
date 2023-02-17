@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:djhackathon/backend/database/api.dart';
+import 'package:djhackathon/backend/database/spotlight.dart';
 import 'package:djhackathon/backend/functions/fun.dart';
 import 'package:djhackathon/const.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 import '../../../backend/auth/user_account.dart';
 import '../../../size.dart';
@@ -22,10 +26,18 @@ class SideMenuBody extends StatefulWidget {
 }
 
 class _SideMenuBodyState extends State<SideMenuBody> {
+  bool isReady = false;
   late int current;
+  late List<Spots> spots;
   final box = GetStorage();
   @override
   void initState() {
+    fetchData('all').then((value) {
+      setState(() {
+        isReady = true;
+        spots = value!.spots;
+      });
+    });
     current = 0;
     super.initState();
   }
@@ -108,8 +120,31 @@ class _SideMenuBodyState extends State<SideMenuBody> {
               index: 0,
               current: current,
               iconPath: "assets/icons/home.svg",
-              clicked: () {
-                Fun.notify("Hello", "How are you?");
+              clicked: () async {
+                // DateTime time = new DateFormat("hh:mm").parse('07:13 pm');
+                // print(time);
+                // fetchData('all').then((value) => print(value?.spots[0].title));
+                // FirebaseDatabase database = FirebaseDatabase.instance;
+                // Fun fun = Fun(database);
+                // dynamic s = await fun.getData('news/all/id/comments');
+                // print(s);
+                // Fun.notify("Hello", "How are you?");
+                // Map<String, Object> val = {
+                //   'business': {
+                //     'id': {
+                //       'comments': {
+                //         'meet@s': {
+                //           'message': "new",
+                //           'name': "Meet",
+                //           'photo': "x",
+                //           'ts': "18/02/23",
+                //         }
+                //       }
+                //     }
+                //   }
+                // };
+                // fun.updateData('abc', val);
+
                 setState(() {
                   current = 0;
                 });

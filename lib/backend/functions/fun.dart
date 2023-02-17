@@ -37,6 +37,17 @@ class Fun {
     return user;
   }
 
+  // Future<Chart?> fetchChart(String code, String range, String interval) async {
+  //   final response = await http
+  //       .get(Uri.parse("${GlobalParams.server}/stock/$code/$range/$interval"));
+
+  //   if (response.statusCode == 200) {
+  //     return Chart.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
   Future<bool> setData(String key, Object value) async {
     bool status = await database
         .ref(key)
