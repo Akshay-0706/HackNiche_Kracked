@@ -1,4 +1,6 @@
 import 'package:djhackathon/backend/functions/fun.dart';
+import 'package:djhackathon/frontend/explore/explore.dart';
+import 'package:djhackathon/frontend/personalised/personalised.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,6 +24,8 @@ class _HomeBodyState extends State<HomeBody> {
 
   final List<Widget> tabs = [
     const HomeContent(),
+    const Explore(),
+    const Personalised(),
   ];
 
   void onChanged(int index) {
@@ -76,7 +80,7 @@ class _HomeBodyState extends State<HomeBody> {
           ),
         ),
       ),
-      body: tabs[0],
+      body: tabs[current],
     );
   }
 }

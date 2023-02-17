@@ -1,12 +1,37 @@
+import 'package:djhackathon/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class PersonalisedBody extends StatelessWidget {
+import '../../../size.dart';
+
+class PersonalisedBody extends StatefulWidget {
   const PersonalisedBody({super.key});
 
   @override
+  State<PersonalisedBody> createState() => _PersonalisedBodyState();
+}
+
+class _PersonalisedBodyState extends State<PersonalisedBody> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    Pallete pallete = Pallete(context);
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Text(
+                "Personalised",
+                style: TextStyle(
+                  color: pallete.primaryDark(),
+                  fontSize: getWidth(22),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
