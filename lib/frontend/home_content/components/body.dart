@@ -125,6 +125,7 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                         pallete: pallete,
                         index: index,
                         country: countries[index],
+                        code: codes[index],
                       ),
                     )
                   ],
