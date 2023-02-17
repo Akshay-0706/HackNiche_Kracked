@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:djhackathon/backend/database/api.dart';
+import 'package:djhackathon/backend/database/notification.dart';
 import 'package:djhackathon/backend/database/spotlight.dart';
 import 'package:djhackathon/backend/functions/fun.dart';
 import 'package:djhackathon/const.dart';
@@ -28,11 +29,9 @@ class SideMenuBody extends StatefulWidget {
 class _SideMenuBodyState extends State<SideMenuBody> {
   bool isReady = false;
   late int current;
-  late List<Spots> spots;
   final box = GetStorage();
   @override
   void initState() {
-    
     current = 0;
     super.initState();
   }
@@ -116,6 +115,7 @@ class _SideMenuBodyState extends State<SideMenuBody> {
               current: current,
               iconPath: "assets/icons/home.svg",
               clicked: () async {
+                fetchDataNoti().then((value) => print(value));
                 // DateTime time = new DateFormat("hh:mm").parse('07:13 pm');
                 // print(time);
                 // fetchData('all').then((value) => print(value?.spots[0].title));

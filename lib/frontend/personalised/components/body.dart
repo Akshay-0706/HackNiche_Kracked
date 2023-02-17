@@ -1,3 +1,5 @@
+import 'package:djhackathon/backend/database/api.dart';
+import 'package:djhackathon/backend/database/spotlight.dart';
 import 'package:djhackathon/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -13,94 +15,112 @@ class PersonalisedBody extends StatefulWidget {
 
 class _PersonalisedBodyState extends State<PersonalisedBody> {
   int current = 0;
-
+  bool isReady = false;
+  late List<Spots> spots;
   List<String> tabs = [
     "Science",
     "Technology",
-    "Gaming",
+    "Business",
   ];
+  void personalised(String title) {
+    fetchData(title).then((value) {
+      setState(() {
+        isReady = true;
+        spots = value!.spots;
+      });
+    });
+  }
 
   void changeTab(int index) {
     setState(() {
       current = index;
+      personalised(tabs[index - 1].toLowerCase());
     });
   }
 
-  bool isReady = false;
   @override
   void initState() {
     // TODO: implement initState
-    isReady = true;
+    fetchData('all').then((value) {
+      setState(() {
+        isReady = true;
+        spots = value!.spots;
+      });
+    });
+    // isReady = true;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Pallete pallete = Pallete(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: getWidth(20)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Personalised",
-                style: TextStyle(
-                  color: pallete.primaryDark(),
-                  fontSize: getWidth(22),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(height: getWidth(20)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(
-                      4,
-                      (index) => TabItem(
-                        pallete: pallete,
-                        index: index,
-                        current: current,
-                        onClicked: changeTab,
-                        title: index == 0 ? "For you" : tabs[index - 1],
+    return isReady
+        ? Scaffold(
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: getWidth(20)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Personalised",
+                      style: TextStyle(
+                        color: pallete.primaryDark(),
+                        fontSize: getWidth(22),
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      ...List.generate(
-                        10,
-                        (index) => NewsCard(
-                          pallete: pallete,
-                          index: index,
-                          length: 10,
+                    ),
+                  ),
+                  SizedBox(height: getWidth(20)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ...List.generate(
+                            4,
+                            (index) => TabItem(
+                              pallete: pallete,
+                              index: index,
+                              current: current,
+                              onClicked: changeTab,
+                              title: index == 0 ? "For you" : tabs[index - 1],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              10,
+                              (index) => NewsCard(
+                                spot: spots[index],
+                                pallete: pallete,
+                                index: index,
+                                length: 10,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          )
+        : Center(child: CircularProgressIndicator());
   }
 }
 

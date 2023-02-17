@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../backend/database/spotlight.dart';
 import '../../size.dart';
 import '../../theme.dart';
 
 class NewsCard extends StatelessWidget {
   const NewsCard({
     Key? key,
+    required this.spot,
     required this.pallete,
     required this.index,
     required this.length,
   }) : super(key: key);
 
+  final Spots spot;
   final Pallete pallete;
   final int index, length;
 
@@ -18,7 +21,6 @@ class NewsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (index == 0) SizedBox(height: getWidth(20)),
         Container(
           height: getHeight(120),
           decoration: BoxDecoration(
@@ -45,8 +47,8 @@ class NewsCard extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      "assets/images/mumbai.png",
+                    child: Image.network(
+                      spot.img,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -58,16 +60,7 @@ class NewsCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Space",
-                          style: TextStyle(
-                            color: pallete.primaryDark(),
-                            fontSize: getWidth(14),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: getWidth(10)),
-                        Text(
-                          "Hello how do we mak wthis what we want ans do it all on our own",
+                          spot.title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(
@@ -81,7 +74,7 @@ class NewsCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "30 min ago",
+                              spot.time.day.toString(),
                               style: TextStyle(
                                 color: pallete.primaryDark().withOpacity(0.8),
                                 fontSize: getWidth(12),
