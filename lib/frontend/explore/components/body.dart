@@ -1,3 +1,4 @@
+import 'package:djhackathon/size.dart';
 import 'package:djhackathon/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,79 +11,117 @@ class ExploreBody extends StatelessWidget {
     Pallete pallete = Pallete(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: Text('Explore'),
-      // ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 22,
-              // vertical: 15,
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 22,
+                // vertical: 15,
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
                   ),
-                ),
-                // fillColor: pallete.background(),
-                fillColor: Color(0xfff7f6f9),
-
-                filled: true,
-                hintText: 'Topic, Media or Journalist',
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 14.0, left: 7),
-                  child: SvgPicture.asset(
-                    'assets/icons/search.svg',
-                    width: 30,
+                  // fillColor: pallete.background(),
+                  fillColor: const Color(0xfff7f6f9),
+                  filled: true,
+                  hintText: 'Topic, Media or Journalist',
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 14.0, left: 7),
+                    child: SvgPicture.asset(
+                      'assets/icons/search.svg',
+                      width: 30,
+                    ),
                   ),
-                ),
-                prefixIconConstraints: BoxConstraints(
-                  maxHeight: 45,
-                  maxWidth: 45,
+                  prefixIconConstraints: const BoxConstraints(
+                    maxHeight: 45,
+                    maxWidth: 45,
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              'Trending Topic',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff0d253c)),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text(
+                'Trending Topic',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff0d253c)),
+              ),
             ),
-          ),
-          Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              children: [
-                Stack(
-                  children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      child: buildTopic('Tesla', '1.2k',
-                          'assets/trending_topics/circle1_tesla_1.2k.jpg', 60),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
+              child: Row(
+                children: [
+                  // This widget will be repeated
+                  SizedBox(
+                    width: SizeConfig.width,
+                    height: 200,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: buildTopic(
+                              'Tesla',
+                              '1.2k',
+                              'assets/trending_topics/circle1_tesla_1.2k.jpg',
+                              60),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: buildTopic(
+                              'Tesla',
+                              '1.2k',
+                              'assets/trending_topics/circle1_tesla_1.2k.jpg',
+                              60),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: getWidth(20)),
+                  SizedBox(
+                    width: SizeConfig.width,
+                    height: 200,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: buildTopic(
+                              'Tesla',
+                              '1.2k',
+                              'assets/trending_topics/circle1_tesla_1.2k.jpg',
+                              60),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: buildTopic(
+                              'Tesla',
+                              '1.2k',
+                              'assets/trending_topics/circle1_tesla_1.2k.jpg',
+                              60),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -141,7 +180,7 @@ class ExploreBody extends StatelessWidget {
               // ),
               Text(
                 name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -149,7 +188,7 @@ class ExploreBody extends StatelessWidget {
               ),
               Text(
                 views,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 8,
                   fontWeight: FontWeight.bold,
