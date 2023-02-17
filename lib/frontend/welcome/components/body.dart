@@ -130,6 +130,21 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                             box.write('token', user.token);
                             box.write('signedIn', true);
                           }
+                          // print(GetStorage().read('email'));
+                          // FirebaseDatabase database = FirebaseDatabase.instance;
+                          // Fun fun = Fun(database);
+                          // var email = GetStorage().read('email');
+                          // email = email.replaceAll(".", "_");
+                          // Map<String, Object> val = {
+                          //   email: {
+                          //     'personalised': {
+                          //       'business': 0,
+                          //       'sports': 0,
+                          //       'economy': 0,
+                          //     }
+                          //   }
+                          // };
+                          // fun.updateData('users', val);
                           Navigator.push(
                             context,
                             CustomPageRoute(
