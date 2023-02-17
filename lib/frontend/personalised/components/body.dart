@@ -29,7 +29,6 @@ class _PersonalisedBodyState extends State<PersonalisedBody> {
   bool isReady = false;
   @override
   void initState() {
-    // TODO: implement initState
     isReady = true;
     super.initState();
   }

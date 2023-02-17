@@ -116,11 +116,23 @@ class _ScreenState extends State<Screen> with SingleTickerProviderStateMixin {
                       onClicked();
                     },
                     borderRadius: BorderRadius.circular(17),
-                    child: Icon(
-                      isSideMenuClosed ? Icons.menu : Icons.close,
-                      color: isSideMenuClosed
-                          ? pallete.primaryDark()
-                          : pallete.background(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: isSideMenuClosed
+                            ? pallete.primaryDark()
+                            : pallete.background(),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: Icon(
+                          isSideMenuClosed ? Icons.menu : Icons.close,
+                          color: isSideMenuClosed
+                              ? pallete.background()
+                              : pallete.primaryDark(),
+                          size: getWidth(20),
+                        ),
+                      ),
                     ),
                   ),
                 ),

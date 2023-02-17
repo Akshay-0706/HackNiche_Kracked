@@ -4,6 +4,7 @@ import 'package:djhackathon/frontend/personalised/personalised.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../size.dart';
 import '../../../theme.dart';
@@ -29,6 +30,16 @@ class _HomeBodyState extends State<HomeBody> {
   ];
 
   void onChanged(int index) {
+    // DateTime time = new DateFormat("d MMM y,EEEE hh:mm a")
+    //     .parse("17 Feb 2023,Friday 10:13 PM");
+    // print("");
+    // print(time.day);
+    // print(time.month);
+    // print(time.year);
+    // print(time.hour);
+    // print(time.minute);
+    // print(time);
+
     if (current != index) {
       widget.tabChanged(index);
       setState(() {

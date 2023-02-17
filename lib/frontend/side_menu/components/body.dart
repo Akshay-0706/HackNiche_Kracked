@@ -32,7 +32,6 @@ class _SideMenuBodyState extends State<SideMenuBody> {
   final box = GetStorage();
   @override
   void initState() {
-    
     current = 0;
     super.initState();
   }
@@ -47,7 +46,7 @@ class _SideMenuBodyState extends State<SideMenuBody> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: getHeight(60)),
+            SizedBox(height: getHeight(80)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
