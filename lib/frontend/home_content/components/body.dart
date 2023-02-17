@@ -34,6 +34,14 @@ class _HomeContentBodyState extends State<HomeContentBody> {
     "Russia",
     "Australia",
   ];
+  List<String> codes = [
+    "in",
+    "us",
+    "fr",
+    "gb",
+    "ru",
+    "au",
+  ];
 
   @override
   void initState() {
@@ -107,6 +115,7 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                           pallete: pallete,
                           index: index,
                           country: countries[index],
+                          code: codes[index],
                         ),
                       )
                     ],
@@ -285,11 +294,13 @@ class FlagCard extends StatelessWidget {
     Key? key,
     required this.pallete,
     required this.country,
+    required this.code,
     required this.index,
   }) : super(key: key);
 
   final Pallete pallete;
   final String country;
+  final String code;
   final int index;
 
   @override
@@ -306,6 +317,7 @@ class FlagCard extends StatelessWidget {
                     context,
                     Country(
                       country: country,
+                      code: code,
                     ),
                   ),
                 );
@@ -315,7 +327,7 @@ class FlagCard extends StatelessWidget {
                 height: 60,
                 decoration: BoxDecoration(
                   border: Border.all(color: pallete.primary(), width: 2),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(4),

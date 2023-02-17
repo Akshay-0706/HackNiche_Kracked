@@ -115,10 +115,11 @@ class _SideMenuBodyState extends State<SideMenuBody> {
               current: current,
               iconPath: "assets/icons/home.svg",
               clicked: () async {
-                fetchDataNoti().then((value) => print(value));
+                // fetchDataNoti().then((value) => print(value));
                 // DateTime time = new DateFormat("hh:mm").parse('07:13 pm');
                 // print(time);
-                // fetchData('all').then((value) => print(value?.spots[0].title));
+                fetchDataCountry('in')
+                    .then((value) => print(value?.news[0].title));
                 // FirebaseDatabase database = FirebaseDatabase.instance;
                 // Fun fun = Fun(database);
                 // dynamic s = await fun.getData('news/all/id/comments');

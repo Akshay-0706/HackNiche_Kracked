@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:djhackathon/backend/database/country.dart';
 import 'package:djhackathon/backend/database/spotlight.dart';
 import 'package:djhackathon/backend/database/notification.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,13 +21,29 @@ Future<Spotlight?> fetchData(String cat) async {
 
 Future<Object?> fetchDataNoti() async {
   // print('hello');
-  String url = "https://newsapi.org/v2/everything?q=india&from=2023-01-17&sortBy=publishedAt&apiKey=c939257a6df04d6e8dbfb99ee1aa0842";
+  String url =
+      "https://newsapi.org/v2/everything?q=india&from=2023-01-17&sortBy=publishedAt&apiKey=c939257a6df04d6e8dbfb99ee1aa0842";
   // print(url);
   final response = await http.get(Uri.parse(url));
 
   if (response.statusCode == 200) {
     // print('out');
     return Notis.fromJSON(jsonDecode(response.body));
+  } else {
+    return null;
+  }
+}
+
+Future<Country?> fetchDataCountry(String country) async {
+  // print('hello');
+  String url =
+      "https://saurav.tech/NewsAPI/top-headlines/category/general/$country.json";
+  // print(url);
+  final response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == 200) {
+    // print('out');
+    return Country.fromJSON(jsonDecode(response.body));
   } else {
     return null;
   }
