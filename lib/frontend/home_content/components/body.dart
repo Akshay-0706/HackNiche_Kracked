@@ -36,6 +36,14 @@ class _HomeContentBodyState extends State<HomeContentBody> {
     "Russia",
     "Australia",
   ];
+  List<String> codes = [
+    "in",
+    "us",
+    "fr",
+    "gb",
+    "ru",
+    "au",
+  ];
 
   @override
   void initState() {
@@ -316,11 +324,13 @@ class FlagCard extends StatelessWidget {
     Key? key,
     required this.pallete,
     required this.country,
+    required this.code,
     required this.index,
   }) : super(key: key);
 
   final Pallete pallete;
   final String country;
+  final String code;
   final int index;
 
   @override
@@ -338,6 +348,7 @@ class FlagCard extends StatelessWidget {
                     context,
                     Country(
                       country: country,
+                      code: code,
                     ),
                   ),
                 );
