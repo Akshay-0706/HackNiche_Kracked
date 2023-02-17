@@ -54,6 +54,7 @@ dependencies:
   google_sign_in: ^5.4.0
   flutter_email_sender: ^5.2.0
   mailer: ^6.0.0
+  http: ^0.13.5
   provider: ^6.0.3
 
 dev_dependencies:
@@ -83,7 +84,6 @@ flutter:
      - assets/icons/
      - assets/extras/
      - assets/images/
-     - assets/images/donations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

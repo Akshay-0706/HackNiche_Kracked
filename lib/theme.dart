@@ -62,13 +62,13 @@ class AppTheme {
 
 class CustomColors {
   // Light mode colors
-  static Color primary = const Color(0xff5E00F5);
+  static Color primary = const Color(0xff2d60e3);
   static Color foreground = const Color(0xff1C1C23);
   static Color foregroundAlt = Colors.black;
   static Color background = const Color(0xffFCF7F8);
 
   // Dark mode colors
-  static Color? primaryDark = const Color(0xff5E00F5);
+  static Color? primaryDark = const Color(0xff2d60e3);
   static Color foregroundDark = const Color(0xffFCF7F8);
   static Color foregroundAltDark = const Color(0xffD2D2D2);
   static Color backgroundDark = const Color(0xff1C1C23);

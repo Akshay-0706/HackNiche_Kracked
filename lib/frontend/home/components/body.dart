@@ -72,12 +72,6 @@ class _HomeBodyState extends State<HomeBody> {
                 pallete: pallete,
                 onChanged: onChanged,
               ),
-              NavItem(
-                index: 3,
-                current: current,
-                pallete: pallete,
-                onChanged: onChanged,
-              ),
             ],
           ),
         ),
@@ -98,15 +92,14 @@ class NavItem extends StatelessWidget {
   final int index, current;
   final Pallete pallete;
   final Function onChanged;
-  final int totalItems = 4;
+  final int totalItems = 3;
 
   @override
   Widget build(BuildContext context) {
     final List<String> iconPath = [
       "assets/icons/home.svg",
-      "assets/icons/home.svg",
-      "assets/icons/home.svg",
-      "assets/icons/home.svg",
+      "assets/icons/explore.svg",
+      "assets/icons/personalised.svg",
     ];
     final double itemWidth = (SizeConfig.width - 40) * (1 / totalItems);
     return InkWell(

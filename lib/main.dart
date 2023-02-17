@@ -92,39 +92,39 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    themeChanger.isDarkMode = themeChanger.currentTheme() == ThemeMode.system
-        ? WidgetsBinding.instance.window.platformBrightness == Brightness.dark
-        : themeChanger.currentTheme() == ThemeMode.dark;
+    // themeChanger.isDarkMode = themeChanger.currentTheme() == ThemeMode.system
+    //     ? WidgetsBinding.instance.window.platformBrightness == Brightness.dark
+    //     : themeChanger.currentTheme() == ThemeMode.dark;
 
-    final window = WidgetsBinding.instance.window;
+    // final window = WidgetsBinding.instance.window;
 
-    if (box.read("theme") == "Light") {
-      themeChanger.changeThemeMode("Light");
-    }
+    // if (box.read("theme") == "Light") {
+    //   themeChanger.changeThemeMode("Light");
+    // }
 
-    if (box.read("theme") == "Dark") {
-      themeChanger.changeThemeMode("Dark");
-    }
+    // if (box.read("theme") == "Dark") {
+    //   themeChanger.changeThemeMode("Dark");
+    // }
 
-    window.onPlatformBrightnessChanged = () {
-      setState(() {
-        themeChanger.isDarkMode =
-            themeChanger.currentTheme() == ThemeMode.system
-                ? WidgetsBinding.instance.window.platformBrightness ==
-                    Brightness.dark
-                : themeChanger.currentTheme() == ThemeMode.dark;
-      });
+    // window.onPlatformBrightnessChanged = () {
+    //   setState(() {
+    //     themeChanger.isDarkMode =
+    //         themeChanger.currentTheme() == ThemeMode.system
+    //             ? WidgetsBinding.instance.window.platformBrightness ==
+    //                 Brightness.dark
+    //             : themeChanger.currentTheme() == ThemeMode.dark;
+    //   });
 
-      if (themeChanger.theme == "Auto") {
-        setState(() {
-          themeChanger.changeThemeMode("Auto");
-        });
-      }
-    };
+    //   if (themeChanger.theme == "Auto") {
+    //     setState(() {
+    //       themeChanger.changeThemeMode("Auto");
+    //     });
+    //   }
+    // };
 
-    themeChanger.addListener(() {
-      setState(() {});
-    });
+    // themeChanger.addListener(() {
+    //   setState(() {});
+    // });
 
     super.initState();
   }
@@ -136,7 +136,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'DJ Hackathon',
       theme: AppTheme.lightTheme(),
-      darkTheme: AppTheme.darkTheme(),
+      // darkTheme: AppTheme.darkTheme(),
       routes: routes,
     );
   }
