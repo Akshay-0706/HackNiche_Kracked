@@ -59,6 +59,7 @@ dependencies:
   provider: ^6.0.3
   date_format: ^2.0.7
   intl: ^0.17.0
+  carousel_slider: 4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +89,7 @@ flutter:
      - assets/extras/
      - assets/images/     
      - assets/trending_topics/
+     - assets/categories/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
