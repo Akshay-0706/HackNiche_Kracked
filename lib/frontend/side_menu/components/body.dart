@@ -32,12 +32,7 @@ class _SideMenuBodyState extends State<SideMenuBody> {
   final box = GetStorage();
   @override
   void initState() {
-    fetchData('all').then((value) {
-      setState(() {
-        isReady = true;
-        spots = value!.spots;
-      });
-    });
+    
     current = 0;
     super.initState();
   }

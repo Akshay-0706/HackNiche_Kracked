@@ -11,6 +11,14 @@ class PersonalisedBody extends StatefulWidget {
 }
 
 class _PersonalisedBodyState extends State<PersonalisedBody> {
+  bool isReady = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    isReady = true;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Pallete pallete = Pallete(context);
