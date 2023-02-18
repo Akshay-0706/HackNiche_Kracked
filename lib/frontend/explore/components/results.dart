@@ -35,7 +35,6 @@ class _ResultsState extends State<Results> {
         value.articles!.forEach((element) {
           print('a1');
           spots.add(Spots(
-              null,
               element.title!,
               element.urlToImage ??
                   'https://static.vecteezy.com/packs/media/vectors/term-bg-1-3d6355ab.jpg',
