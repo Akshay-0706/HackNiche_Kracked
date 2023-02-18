@@ -36,8 +36,8 @@ class NewsCard extends StatelessWidget {
         dynamic g = await fun.getData('users');
         // print(g[email]['personalised']);
 
-        g[email]['personalised'][spot.category] =
-            g[email]['personalised'][spot.category] + 1;
+        g[email]['personalised'][spot.cat] =
+            g[email]['personalised'][spot.cat] + 1;
 
         Map<String, Object> s = {
           email: {

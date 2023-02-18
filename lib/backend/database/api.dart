@@ -82,3 +82,47 @@ Future<NewsData?> fetchNewsData(String? query, String? category) async {
     return null;
   }
 }
+
+Future<List<Spots>> fetchDataAll() async {
+  // print('hello');
+  List<Spots> all = [];
+  List<String> cat = [
+    'business',
+    'sports',
+    'politics',
+    'technology',
+    'startup',
+    'entertainment',
+    'science',
+    'automobile'
+  ];
+
+  for (var c in cat) {
+    String url = "https://inshorts.deta.dev/news?category=$c";
+    // print(url);
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      // print('out');
+      List<Spots> s = Spotlight.fromJSON(c, jsonDecode(response.body)).spots;
+      // print(s.length);
+      all.add(s[0]);
+      all.add(s[1]);
+    }
+  }
+  return all;
+}
+
+Future<Spotlight?> fetchDataForYou() async {
+  // print('hello');
+  String url = "https://inshorts.deta.dev/news?category=all";
+  // print(url);
+  final response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == 200) {
+    // print('out');
+    return Spotlight.fromJSON("", jsonDecode(response.body));
+  } else {
+    return null;
+  }
+}
