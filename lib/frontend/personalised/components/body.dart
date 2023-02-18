@@ -1,8 +1,11 @@
 import 'package:djhackathon/backend/database/api.dart';
 import 'package:djhackathon/backend/database/spotlight.dart';
+import 'package:djhackathon/backend/functions/fun.dart';
 import 'package:djhackathon/frontend/home_content/components/shimmer.dart';
 import 'package:djhackathon/theme.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../size.dart';
 import '../../components/news_card.dart';
@@ -40,82 +43,115 @@ class _PersonalisedBodyState extends State<PersonalisedBody> {
     personalised(index == 0 ? "all" : tabs[index - 1].toLowerCase());
   }
 
+  int globalSum = 0;
+  void getData() async {
+    await getSum();
+    final data =
+        (globalSum == 0) ? await fetchDataForYou() : await fetchData('science');
+    spots = data!.spots;
+    setState(() {
+      isReady = true;
+    });
+  }
+
   @override
   void initState() {
-    personalised("all");
+    // personalised("all");
+    getData();
     super.initState();
+  }
+
+  Future<void> getSum() async {
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    Fun fun = Fun(database);
+    String email = GetStorage().read('email');
+    email = email.replaceAll('.', '_');
+    dynamic g = await fun.getData('users/$email/personalised');
+    int sum = g['politics'] +
+        g['business'] +
+        g['sports'] +
+        g['entertainment'] +
+        g['science'] +
+        g['technology'] +
+        g['automobile'] +
+        g['startup'];
+    // print(sum);
+    globalSum = sum;
   }
 
   @override
   Widget build(BuildContext context) {
     Pallete pallete = Pallete(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: getWidth(20)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Personalised",
-                style: TextStyle(
-                  color: pallete.primaryDark(),
-                  fontSize: getWidth(22),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(height: getWidth(20)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(
-                      4,
-                      (index) => TabItem(
-                        pallete: pallete,
-                        index: index,
-                        current: current,
-                        onClicked: changeTab,
-                        title: index == 0 ? "For you" : tabs[index - 1],
+    return isReady
+        ? Scaffold(
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: getWidth(20)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Personalised",
+                      style: TextStyle(
+                        color: pallete.primaryDark(),
+                        fontSize: getWidth(22),
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      ...List.generate(
-                        10,
-                        (index) => isReady
-                            ? NewsCard(
-                                spot: spots[index],
-                                pallete: pallete,
-                                index: index,
-                                length: 10,
-                              )
-                            : NewsItemShimmer(index: index),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  SizedBox(height: getWidth(20)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ...List.generate(
+                            4,
+                            (index) => TabItem(
+                              pallete: pallete,
+                              index: index,
+                              current: current,
+                              onClicked: changeTab,
+                              title: index == 0 ? "For you" : tabs[index - 1],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              20,
+                              (index) => isReady
+                                  ? NewsCard(
+                                      spot: spots[index],
+                                      pallete: pallete,
+                                      index: index,
+                                      length: 20,
+                                    )
+                                  : NewsItemShimmer(index: index),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          )
+        : Center(child: CircularProgressIndicator());
   }
 }
 

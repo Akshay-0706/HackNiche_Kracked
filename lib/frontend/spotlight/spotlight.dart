@@ -5,7 +5,7 @@ import '../../backend/database/spotlight.dart';
 
 class SpotLight extends StatelessWidget {
   const SpotLight({super.key, required this.spots});
-  final Spots spots;
+  final List<Spots> spots;
 
   @override
   Widget build(BuildContext context) {

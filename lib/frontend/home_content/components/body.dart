@@ -27,7 +27,7 @@ class HomeContentBody extends StatefulWidget {
 class _HomeContentBodyState extends State<HomeContentBody> {
   final box = GetStorage();
   bool isReady = false;
-  late List<Spots> spots;
+  late List<Spots> spots, news = [];
   List<String> countries = [
     "India",
     "USA",
@@ -45,15 +45,24 @@ class _HomeContentBodyState extends State<HomeContentBody> {
     "au",
   ];
 
+  void calls() async {
+    final getdata1 = await fetchData('all');
+    spots = getdata1!.spots;
+
+    spots.shuffle();
+
+    final getdata2 = await fetchDataAll();
+    news = getdata2;
+
+    news.shuffle();
+    setState(() {
+      isReady = true;
+    });
+  }
+
   @override
   void initState() {
-    fetchData('all').then((value) {
-      setState(() {
-        isReady = true;
-        spots = value!.spots;
-        // spots.shuffle();
-      });
-    });
+    calls();
     super.initState();
   }
 
@@ -225,8 +234,7 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                                 context,
                                 CustomPageRoute(
                                   context,
-                                  SpotLight(
-                                      spots: spots[spots.length - index - 1]),
+                                  SpotLight(spots: spots),
                                 ),
                               ),
                               child: SpotlightCard(
@@ -272,7 +280,7 @@ class _HomeContentBodyState extends State<HomeContentBody> {
                     ? Padding(
                         padding: EdgeInsets.symmetric(horizontal: getWidth(20)),
                         child: NewsCard(
-                          spot: spots[index],
+                          spot: news[index],
                           pallete: pallete,
                           index: index,
                           length: 10,

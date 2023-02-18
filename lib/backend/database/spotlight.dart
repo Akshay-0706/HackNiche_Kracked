@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 class Spots {
+  final String? category;
   final String title;
   final String desc;
   final String img;

@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:djhackathon/frontend/components/custom_page_route.dart';
 import 'package:djhackathon/frontend/news/news.dart';
+import 'package:djhackathon/backend/functions/fun.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 import '../../backend/database/spotlight.dart';
@@ -24,13 +27,39 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (index == 0) SizedBox(height: getWidth(20)),
-        GestureDetector(
-          onTap: () => Navigator.push(
-              context, CustomPageRoute(context, News(spots: spot))),
-          child: Container(
+    return InkWell(
+      onTap: () async {
+        FirebaseDatabase database = FirebaseDatabase.instance;
+        Fun fun = Fun(database);
+        String email = GetStorage().read('email');
+        email = email.replaceAll('.', '_');
+        dynamic g = await fun.getData('users');
+        // print(g[email]['personalised']);
+
+        g[email]['personalised'][spot.category] =
+            g[email]['personalised'][spot.category] + 1;
+
+        Map<String, Object> s = {
+          email: {
+            "personalised": {
+              "business": g[email]['personalised']["business"],
+              "sports": g[email]['personalised']["sports"],
+              "startup": g[email]['personalised']["startup"],
+              "entertainment": g[email]['personalised']["entertainment"],
+              "politics": g[email]['personalised']["politics"],
+              "technology": g[email]['personalised']["technology"],
+              "science": g[email]['personalised']["science"],
+              "automobile": g[email]['personalised']["automobile"],
+            }
+          }
+        };
+        dynamic s1 = await fun.updateData('users', s);
+        print(s1);
+      },
+      child: Column(
+        children: [
+          if (index == 0) SizedBox(height: getWidth(20)),
+          Container(
             height: getHeight(120),
             decoration: BoxDecoration(
               color: pallete.background(),
@@ -106,9 +135,9 @@ class NewsCard extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        if (index != length - 1) SizedBox(height: getWidth(20)),
-      ],
+          if (index != length - 1) SizedBox(height: getWidth(20)),
+        ],
+      ),
     );
   }
 }
