@@ -1,3 +1,4 @@
+import 'package:djhackathon/backend/database/api.dart';
 import 'package:djhackathon/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,15 +8,16 @@ import '../../../size.dart';
 
 class SpotLightBody extends StatefulWidget {
   const SpotLightBody({super.key, required this.spots});
-  final Spots spots;
+  final List<Spots> spots;
 
   @override
   State<SpotLightBody> createState() => _SpotLightBodyState();
 }
 
 class _SpotLightBodyState extends State<SpotLightBody> {
-  late Spotlight spotlight = Spotlight([widget.spots]);
+  // late Spotlight spotlight = Spotlight([widget.spots]);
   bool isReady = false;
+  // late List<Spots> spots;
 
   @override
   void initState() {
@@ -37,9 +39,9 @@ class _SpotLightBodyState extends State<SpotLightBody> {
           itemBuilder: (context, index) => isReady
               ? ReelCard(
                   pallete: pallete,
-                  spots: spotlight.spots[index],
+                  spots: widget.spots[widget.spots.length - index - 1],
                 )
-              : const CircularProgressIndicator(),
+              : Center(child: const CircularProgressIndicator()),
         ),
       ),
     );
