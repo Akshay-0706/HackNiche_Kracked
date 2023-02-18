@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:djhackathon/backend/database/country.dart';
 import 'package:djhackathon/backend/database/spotlight.dart';
 import 'package:djhackathon/backend/database/notification.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import 'news_data.dart';
@@ -15,7 +14,7 @@ Future<Spotlight?> fetchData(String cat) async {
 
   if (response.statusCode == 200) {
     // print('out');
-    return Spotlight.fromJSON(jsonDecode(response.body));
+    return Spotlight.fromJSON(cat, jsonDecode(response.body));
   } else {
     return null;
   }

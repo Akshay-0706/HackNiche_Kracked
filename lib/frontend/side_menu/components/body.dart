@@ -115,31 +115,8 @@ class _SideMenuBodyState extends State<SideMenuBody> {
               current: current,
               iconPath: "assets/icons/home.svg",
               clicked: () async {
-                // fetchDataNoti().then((value) => print(value));
-                // DateTime time = new DateFormat("hh:mm").parse('07:13 pm');
-                // print(time);
                 fetchDataCountry('in')
                     .then((value) => print(value?.news[0].title));
-                // FirebaseDatabase database = FirebaseDatabase.instance;
-                // Fun fun = Fun(database);
-                // dynamic s = await fun.getData('news/all/id/comments');
-                // print(s);
-                // Fun.notify("Hello", "How are you?");
-                // Map<String, Object> val = {
-                //   'business': {
-                //     'id': {
-                //       'comments': {
-                //         'meet@s': {
-                //           'message': "new",
-                //           'name': "Meet",
-                //           'photo': "x",
-                //           'ts': "18/02/23",
-                //         }
-                //       }
-                //     }
-                //   }
-                // };
-                // fun.updateData('abc', val);
 
                 setState(() {
                   current = 0;
@@ -151,46 +128,38 @@ class _SideMenuBodyState extends State<SideMenuBody> {
             SizedBox(height: getHeight(10)),
             DrawerCard(
               pallete: pallete,
-              title: "Articles",
+              title: "Saved",
               index: 1,
               current: current,
-              iconPath: "assets/icons/home.svg",
+              iconPath: "assets/icons/save.svg",
               clicked: () {
                 setState(() {
                   current = 1;
                 });
                 print("$current pressed");
-                // Navigator.push(
-                //   context,
-                //   CustomPageRoute(
-                //     context,
-                //     const News(),
-                //   ),
-                // );
               },
             ),
             SizedBox(height: getHeight(10)),
             DrawerCard(
               pallete: pallete,
-              title: "Rewards",
+              title: "Alerts",
               index: 2,
               current: current,
-              iconPath: "assets/icons/home.svg",
+              iconPath: "assets/icons/alerts.svg",
               clicked: () {
                 setState(() {
                   current = 2;
                 });
                 print("$current pressed");
-                // Navigator.pushNamed(context, '/reward');
               },
             ),
             SizedBox(height: getHeight(10)),
             DrawerCard(
               pallete: pallete,
-              title: "Trophy wall",
+              title: "Profile",
               index: 3,
               current: current,
-              iconPath: "assets/icons/home.svg",
+              iconPath: "assets/icons/profile.svg",
               clicked: () {
                 setState(() {
                   current = 3;
@@ -214,10 +183,10 @@ class _SideMenuBodyState extends State<SideMenuBody> {
             SizedBox(height: getHeight(10)),
             DrawerCard(
               pallete: pallete,
-              title: "Notifications",
+              title: "Theme",
               index: 4,
               current: current,
-              iconPath: "assets/icons/home.svg",
+              iconPath: "assets/icons/theme.svg",
               clicked: () {
                 setState(() {
                   current = 4;
@@ -232,7 +201,7 @@ class _SideMenuBodyState extends State<SideMenuBody> {
               title: "Settings",
               index: 5,
               current: current,
-              iconPath: "assets/icons/home.svg",
+              iconPath: "assets/icons/settings.svg",
               clicked: () {
                 setState(() {
                   current = 5;
@@ -247,7 +216,7 @@ class _SideMenuBodyState extends State<SideMenuBody> {
               title: "Log out",
               index: 6,
               current: current,
-              iconPath: "assets/icons/home.svg",
+              iconPath: "assets/icons/logout.svg",
               clicked: () {
                 print("$current pressed");
                 UserAccount.googleLogout();

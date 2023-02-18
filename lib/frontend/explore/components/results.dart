@@ -39,7 +39,10 @@ class _ResultsState extends State<Results> {
               element.urlToImage ??
                   'https://static.vecteezy.com/packs/media/vectors/term-bg-1-3d6355ab.jpg',
               element.author ?? 'Unknown',
-              DateTime.parse(element.publishedAt!)));
+              DateTime.parse(element.publishedAt!),
+              "",
+              "",
+              widget.category!));
         });
         print('a2');
       });

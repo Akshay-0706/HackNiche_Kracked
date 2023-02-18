@@ -51,7 +51,7 @@ class _HomeContentBodyState extends State<HomeContentBody> {
       setState(() {
         isReady = true;
         spots = value!.spots;
-        spots.shuffle();
+        // spots.shuffle();
       });
     });
     super.initState();

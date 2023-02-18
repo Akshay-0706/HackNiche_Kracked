@@ -100,7 +100,7 @@ class ExploreBody extends StatelessWidget {
                 children: [
                   // This widget will be repeated
                   SizedBox(
-                    width: SizeConfig.width * 1.55,
+                    width: SizeConfig.width * 1.4,
                     height: 250,
                     child: Stack(
                       children: [
@@ -188,7 +188,7 @@ class ExploreBody extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: SizeConfig.width * 1.55,
+                    width: SizeConfig.width * 1.4,
                     height: 250,
                     child: Stack(
                       children: [
@@ -276,7 +276,7 @@ class ExploreBody extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: SizeConfig.width * 1.55,
+                    width: SizeConfig.width * 1.45,
                     height: 250,
                     child: Stack(
                       children: [
@@ -370,7 +370,7 @@ class ExploreBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Text(
                     'Explore By Category',
                     style: TextStyle(
@@ -393,9 +393,9 @@ class ExploreBody extends StatelessWidget {
                     child: Text(
                       'See All',
                       style: TextStyle(
-                          fontSize: getWidth(14),
-                          fontWeight: FontWeight.bold,
-                          color: pallete.primaryDark()),
+                        fontSize: getWidth(14),
+                        color: pallete.primaryDark(),
+                      ),
                     ),
                   ),
                 ),
@@ -423,22 +423,24 @@ class ExploreBody extends StatelessWidget {
                       },
                       child: Container(
                           width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 10.0),
-                          padding: EdgeInsets.all(15.0),
+                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.all(15.0),
                           alignment: Alignment.bottomLeft,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage(images[i]),
-                                fit: BoxFit.cover),
+                              image: AssetImage(images[i]),
+                              fit: BoxFit.cover,
+                            ),
                             color: colors[i],
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             texts[i],
-                            style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           )),
                     );
                   },
@@ -453,6 +455,7 @@ class ExploreBody extends StatelessWidget {
 
   Widget buildTopic(String name, String views, String asset, double width,
       BuildContext context) {
+    Pallete pallete = Pallete(context);
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -470,21 +473,55 @@ class ExploreBody extends StatelessWidget {
             width: width,
             height: width,
             clipBehavior: Clip.antiAlias,
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage(asset),
+            //     fit: BoxFit.cover,
+            //   ),
+            //   shape: BoxShape.circle,
+            // ),
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(asset),
-                fit: BoxFit.cover,
-              ),
+              color: pallete.primaryDark().withOpacity(0.7),
+              // borderRadius: BorderRadius.circular(20),
               shape: BoxShape.circle,
-
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Colors.grey.withOpacity(0.5),
-              //     spreadRadius: 5,
-              //     blurRadius: 7,
-              //     offset: Offset(0, 3), // changes position of shadow
-              //   ),
-              // ],
+            ),
+            child: Stack(
+              fit: StackFit.expand,
+              alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    asset,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      begin: FractionalOffset.topCenter,
+                      end: FractionalOffset.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.1),
+                        Colors.black.withOpacity(0.2),
+                        Colors.black.withOpacity(0.3),
+                        Colors.black.withOpacity(0.8),
+                        Colors.black.withOpacity(0.9),
+                      ],
+                      stops: const [
+                        0.0,
+                        0.2,
+                        0.3,
+                        0.4,
+                        0.8,
+                        0.9,
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Container(
@@ -533,7 +570,7 @@ class ExploreBody extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
               ],
             ),
           )

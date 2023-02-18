@@ -78,7 +78,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                 const Spacer(),
                 LottieBuilder.asset(
                   "assets/extras/lottie_welcome.json",
-                  repeat: true,
+                  repeat: false,
                 ),
                 const Spacer(),
                 Padding(
@@ -86,7 +86,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                   child: SizedBox(
                     width: getWidth(220),
                     child: Text(
-                      "We Need To Change Our Society",
+                      "Welcome to News Flash",
                       style: TextStyle(
                         color: Theme.of(context).primaryColorDark,
                         fontSize: getWidth(22),
@@ -98,7 +98,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: getHeight(20)),
                   child: Text(
-                    "Welcome to Split-it, with this app you can easily keep track of your expenses, split bills among your friends and stay in your budget!",
+                    "You can easily keep track of latest news and current affairs. Get latest news from our app, stay updated in your life.",
                     style: TextStyle(
                       color: Theme.of(context).primaryColorLight,
                       fontSize: getWidth(14),
