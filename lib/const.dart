@@ -4,6 +4,7 @@ class Global {
   static double drawerOffset = 0.7;
   static Duration drawerDuration = const Duration(milliseconds: 300);
   static bool themeIsDark = true;
+  static String host = "http://18.179.201.241:3000";
 
   static List<Color> colors = [
     const Color(0xffE5233B),
